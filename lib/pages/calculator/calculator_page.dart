@@ -23,7 +23,12 @@ class _CalculatorPageState extends State<CalculatorPage> {
   TextEditingController weightController = TextEditingController();
 
   String textInfo = "Informe seus dados";
-  
+  void _resetFields(){
+    heightController.clear();
+    weightController.text = "";
+  }
+
+
   void _calculateIMC(){
     double height = double.parse(heightController.text)/100;
     double weight = double.parse(weightController.text);
@@ -61,9 +66,9 @@ class _CalculatorPageState extends State<CalculatorPage> {
         actions: [
           GestureDetector(
             onTap: () => {
-              //call function refresh weight and  height
+              _resetFields()
             },
-            child: Icon(Icons.refresh),
+            child: Icon(Icons.refresh,),            
           )
         ],
       ),
