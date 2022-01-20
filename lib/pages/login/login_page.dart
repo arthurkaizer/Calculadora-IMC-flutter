@@ -115,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
               child: ElevatedButton(
                 child: const Text('ENTRAR'),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/calculator');
+                  Navigator.pushReplacementNamed(context, '/calculator');
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.black,
