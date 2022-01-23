@@ -1,16 +1,8 @@
+import 'package:calculadora_imc/widgets/NavDrawer.dart';
 import 'package:flutter/material.dart';
 
 class CalculatorPage extends StatefulWidget {
   CalculatorPage({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
@@ -23,29 +15,28 @@ class _CalculatorPageState extends State<CalculatorPage> {
   TextEditingController weightController = TextEditingController();
 
   String textInfo = "Informe seus dados";
-  void _resetFields(){
+  void _resetFields() {
     heightController.clear();
     weightController.text = "";
   }
 
-
-  void _calculateIMC(){
-    double height = double.parse(heightController.text)/100;
+  void _calculateIMC() {
+    double height = double.parse(heightController.text) / 100;
     double weight = double.parse(weightController.text);
 
-    double imc = weight/(height * height);
+    double imc = weight / (height * height);
 
-    if(imc < 18.5){
+    if (imc < 18.5) {
       textInfo = "Abaixo do peso ${imc.toStringAsPrecision(2)}";
-    }else if(imc <= 24.9){
+    } else if (imc <= 24.9) {
       textInfo = "No peso ${imc.toStringAsPrecision(2)}";
-    }else if(imc <= 29.9){
+    } else if (imc <= 29.9) {
       textInfo = "Acima do peso ${imc.toStringAsPrecision(2)}";
-    }else if(imc <= 34.9){
+    } else if (imc <= 34.9) {
       textInfo = "Obesidade grau I ${imc.toStringAsPrecision(2)}";
-    }else if(imc <= 39.9){
+    } else if (imc <= 39.9) {
       textInfo = "Obesidade grau II ${imc.toStringAsPrecision(2)}";
-    }else{
+    } else {
       textInfo = "Obesidade grau III ${imc.toStringAsPrecision(2)}";
     }
   }
@@ -59,16 +50,35 @@ class _CalculatorPageState extends State<CalculatorPage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+      drawer: NavDrawer(),
       appBar: AppBar(
         centerTitle: true,
-        leading: Image.asset('assets/images/logo_home_1.png'),
-        title: Text('Calculadora IMC'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Image.asset(
+              'assets/images/logo_home_1.png',
+              fit: BoxFit.contain,
+              height: 32,
+            ),
+            Container(
+              padding: const EdgeInsets.all(8.0),
+              margin: EdgeInsets.only(left: 25),
+              child: Text(
+                'Calculadora IMC',
+                style: TextStyle(
+                  fontSize: 14,
+                ),
+              )
+            ),
+          ],
+        ),
         actions: [
           GestureDetector(
-            onTap: () => {
-              _resetFields()
-            },
-            child: Icon(Icons.refresh,),            
+            onTap: () => {_resetFields()},
+            child: Icon(
+              Icons.refresh,
+            ),
           )
         ],
       ),
@@ -120,7 +130,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                 child: const Text('calcular'),
                 onPressed: () {
                   setState(() {
-                    _calculateIMC(); 
+                    _calculateIMC();
                   });
                 },
                 style: ElevatedButton.styleFrom(
