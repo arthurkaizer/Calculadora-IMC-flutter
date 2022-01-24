@@ -15,6 +15,10 @@ class MyApp extends StatelessWidget {
       title: 'Camp',
       theme: ThemeData(
         primaryColor: Color(0xFFC1007E),
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: const Color(0xFFC1007E),
+          secondary: const Color(0xFFC1007E),
+        ),
         toggleableActiveColor: Color(0xFFC1007E),
         fontFamily: 'Poppins',
         iconTheme: IconThemeData(color: Color(0xFFC1007E)),

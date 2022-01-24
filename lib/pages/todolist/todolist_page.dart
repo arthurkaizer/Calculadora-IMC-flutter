@@ -11,6 +11,19 @@ class TodoListPage extends StatefulWidget {
 }
 
 class _TodoListPageState extends State<TodoListPage> {
+  TextEditingController textController = TextEditingController();
+
+  List<TaskModel> todoList = [
+    TaskModel(description: "Assistir aula gravada modulo 5"),
+    TaskModel(description: "Palestra Como entrar em Big Techs")
+  ];
+
+  void addTodo() {
+    var newTask = TaskModel(description: textController.text);
+    todoList.add(newTask);
+    textController.text = "";
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -32,18 +45,95 @@ class _TodoListPageState extends State<TodoListPage> {
               height: 32,
             ),
             Container(
-              padding: const EdgeInsets.all(8.0),
-              margin: EdgeInsets.only(left: 25),
-              child: Text(
-                'Lista tarefas',
-                style: TextStyle(
-                  fontSize: 14,
-                ),
-              )
-            ),
+                padding: const EdgeInsets.all(8.0),
+                margin: EdgeInsets.only(left: 25),
+                child: Text(
+                  'Lista tarefas',
+                  style: TextStyle(
+                    fontSize: 14,
+                  ),
+                )),
           ],
         ),
       ),
+      body: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.fromLTRB(22, 24, 34, 41),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: textController,
+                    cursorColor: Theme.of(context).primaryColor,
+                    decoration: InputDecoration(
+                      labelText: 'Nova tarefa',
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 19,
+                ),
+                TextButton(
+                  onPressed: () {
+                    setState(() {
+                      addTodo();
+                    });
+                  },
+                  child: Text(
+                    'ADD',
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                  style: TextButton.styleFrom(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    elevation: 5,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.zero,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+                itemCount: todoList.length,
+                itemBuilder: (_, index) {
+                  var task = todoList[index];
+                  return CheckboxListTile(
+                    value: task.completed,
+                    onChanged: (value) {
+                      setState(() {
+                        task.completed = value ?? false;
+                      });
+                    },
+                    title: Text(
+                      task.description,
+                      style: TextStyle(
+                        color: Color(0xFF767676),
+                        fontSize: 14,
+                        decoration: task.completed
+                            ? TextDecoration.lineThrough
+                            : TextDecoration.none,
+                      ),
+                    ),
+                    secondary: Icon(
+                      task.completed ? Icons.check_circle : Icons.error,
+                      color: Color(0xFFC1007E),
+                    ),
+                  );
+                }),
+          ),
+        ],
+      ),
     );
   }
+}
+
+class TaskModel {
+  bool completed;
+  String description;
+
+  TaskModel({this.completed = false, required this.description});
 }
