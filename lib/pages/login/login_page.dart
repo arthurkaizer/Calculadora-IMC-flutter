@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'widgets/CustomTextFieldWidget.dart';
+
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key, required this.title}) : super(key: key);
 
@@ -29,6 +31,7 @@ class _LoginPageState extends State<LoginPage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
+      resizeToAvoidBottomInset: false,
       body: Center(
         child: Column(
           children: [
@@ -39,76 +42,36 @@ class _LoginPageState extends State<LoginPage> {
             ),
             Padding(padding: EdgeInsets.only(bottom: 129)),
             Container(
-                width: 300,
-                child: Text(
-                  "Seja bem vindo!",
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 31.0,
-                  ),
+              width: 300,
+              child: Text(
+                "Seja bem vindo!",
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 31.0,
                 ),
               ),
-              Container(
-                width: 300,
-                child: Text(
-                  "Calculadora IMC",
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24.0,
-                  ),
+            ),
+            Container(
+              width: 300,
+              child: Text(
+                "Calculadora IMC",
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24.0,
                 ),
               ),
+            ),
             Padding(padding: EdgeInsets.only(bottom: 43)),
-             Container(
-                height: 50,
-                width: 300,
-                child: TextField(
-                  cursorColor: Colors.black,
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    contentPadding: EdgeInsets.fromLTRB(30, 20, 20, 20),
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(50)),
-                    hintStyle: TextStyle(
-                      color: Color(0xFF767676),
-                    ),
-                    hintText: "usuario",
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                height: 50,
-                width: 300,
-                child: TextField(
-                  cursorColor: Colors.black,
-                  style: TextStyle(color: Colors.black),
-                  obscureText: true,
-                  obscuringCharacter: '*',
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    contentPadding: EdgeInsets.fromLTRB(30, 20, 20, 20),
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(50)),
-                    hintStyle: TextStyle(
-                      color: Color(0xFF767676),
-                    ),
-                    hintText: "senha",
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
+            CustomTextFieldWidget(hintText: 'Usuario',),
+            SizedBox(
+              height: 20,
+            ),
+            CustomTextFieldWidget(hintText: 'Senha',obscureText: true,),
+            SizedBox(
+              height: 20,
+            ),
             Container(
               width: 300,
               height: 50,
