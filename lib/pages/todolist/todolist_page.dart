@@ -1,3 +1,5 @@
+import 'package:calculadora_imc/pages/todolist/widgets/ListTaskWidget.dart';
+import 'package:calculadora_imc/pages/todolist/widgets/TaskItemWidget.dart';
 import 'package:calculadora_imc/widgets/NavDrawer.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +24,10 @@ class _TodoListPageState extends State<TodoListPage> {
     var newTask = TaskModel(description: textController.text);
     todoList.add(newTask);
     textController.text = "";
+  }
+
+  void updateStatus(int index, bool? value) {
+    todoList[index].completed = value ?? false;
   }
 
   @override
@@ -97,33 +103,12 @@ class _TodoListPageState extends State<TodoListPage> {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-                itemCount: todoList.length,
-                itemBuilder: (_, index) {
-                  var task = todoList[index];
-                  return CheckboxListTile(
-                    value: task.completed,
-                    onChanged: (value) {
-                      setState(() {
-                        task.completed = value ?? false;
-                      });
-                    },
-                    title: Text(
-                      task.description,
-                      style: TextStyle(
-                        color: Color(0xFF767676),
-                        fontSize: 14,
-                        decoration: task.completed
-                            ? TextDecoration.lineThrough
-                            : TextDecoration.none,
-                      ),
-                    ),
-                    secondary: Icon(
-                      task.completed ? Icons.check_circle : Icons.error,
-                      color: Color(0xFFC1007E),
-                    ),
-                  );
-                }),
+            child: ListTaskWidget(
+              todoList: todoList,
+              onChanged: (value, index) => setState(() {
+                updateStatus(index, value);
+              }),
+            ),
           ),
         ],
       ),
